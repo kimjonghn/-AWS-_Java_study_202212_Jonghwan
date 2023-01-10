@@ -15,3 +15,6 @@ public class j09_Student {
 
 	}
 }
+//public 모든 폴더안에서 적용가능
+//private class안에서만 
+//default 패키지 안에서만

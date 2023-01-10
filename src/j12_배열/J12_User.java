@@ -1,19 +1,19 @@
 package j12_배열;
 
-public class j12_User {
+public class J12_User {
 
 	private String Username; //사용자 이름(아이디, 계정)
 	private String password; //비밀번호
 	private String name; 	 //성명
 	private String email; 	 //이메일
 	
-	public j12_User() {	//ctr + space + s
+	public J12_User() {	//ctr + space + s
 		
 		//alt + shift +s
 		
 	}
 
-	public j12_User(String username, String password, String name, String email) {
+	public J12_User(String username, String password, String name, String email) {
 		super();
 		this.Username = username;
 		this.password = password;
