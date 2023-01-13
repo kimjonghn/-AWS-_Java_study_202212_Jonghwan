@@ -12,6 +12,6 @@ public class Subway extends Transportation{
 		System.out.println("지하철 타고 도착");
 	}
 	public void checkRoute() {
-		System.out.println("지하철 노선 확인");
+		System.out.println("지하철 노선 확인"); 
 	}
 }

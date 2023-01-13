@@ -1,5 +1,7 @@
 package j01.출력;
 
+import j17_스태틱.싱글톤.KIA;
+
 public class HelloJava {
 
 	public static void main(String[] args) {
@@ -10,6 +12,8 @@ public class HelloJava {
 		System.out.println("01075846566");
 		System.out.println("수업:AWS기반 공공빅데이터 활용 웹개발자 양성"); 
 		
+		System.out.println();
+//		KIA.getInastance().printCompanyName();
 }
 	//한 줄 주석
 	//컴파일 시에 무시됨
