@@ -6,16 +6,28 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.google.gson.JsonObject;
+
+import usermanagement.service.UserService;
+
 public class UserManagementFrame extends JFrame {
+	
+	private List<JTextField> loginFields;
+	private List<JTextField> registerFields;
 
 	private CardLayout mainCard;
 	private JPanel mainPanel;
@@ -23,8 +35,8 @@ public class UserManagementFrame extends JFrame {
 	private JPasswordField passwordField;
 	private JTextField registerUsernameField;
 	private JTextField registerNameField;
-	private JTextField registerOasswordFiled;
-	private JTextField registerEmailFiled;
+	private JTextField registerPasswordField;
+	private JTextField registerEmailField;
 
 	
 	public static void main(String[] args) {
@@ -42,6 +54,9 @@ public class UserManagementFrame extends JFrame {
 
 	
 	public UserManagementFrame() {
+		loginFields = new ArrayList<>();
+		registerFields = new ArrayList<>();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 684, 543);
 		mainPanel = new JPanel();
@@ -92,7 +107,18 @@ public class UserManagementFrame extends JFrame {
 		passwordLabel.setBounds(71, 270, 149, 15);
 		loginpanel.add(passwordLabel);
 		
-		JButton loginButton = new JButton("Login");
+		JButton loginButton = new JButton("Login");//로그인 클릭
+		
+		loginButton.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {		
+				
+			}			
+		});		
+		 			
+				
+		
 		loginButton.setBackground(new Color(255, 255, 255));
 		loginButton.setFont(new Font("D2Coding", Font.BOLD, 27));
 		loginButton.setBounds(71, 360, 529, 41);
@@ -109,6 +135,7 @@ public class UserManagementFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				mainCard.show(mainPanel, "registerPanel");
+				clearFields(loginFields);
 			}
 		});
 		signupLink.setForeground(new Color(0, 255, 255));
@@ -186,20 +213,62 @@ public class UserManagementFrame extends JFrame {
 		registerEmailLabel.setBounds(74, 337, 149, 15);
 		registerPanel.add(registerEmailLabel);
 		
-		registerOasswordFiled = new JTextField();
-		registerOasswordFiled.setColumns(10);
-		registerOasswordFiled.setBounds(74, 232, 528, 30);
-		registerPanel.add(registerOasswordFiled);
+		registerPasswordField = new JTextField();
+		registerPasswordField.setColumns(10);
+		registerPasswordField.setBounds(74, 232, 528, 30);
+		registerPanel.add(registerPasswordField);
 		
-		registerEmailFiled = new JTextField();
-		registerEmailFiled.setColumns(10);
-		registerEmailFiled.setBounds(74, 362, 528, 30);
-		registerPanel.add(registerEmailFiled);
+		registerEmailField = new JTextField();
+		registerEmailField.setColumns(10);
+		registerEmailField.setBounds(74, 362, 528, 30);
+		registerPanel.add(registerEmailField);
 		
 		JButton registerButton = new JButton("Register");
+		
+		registerButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JsonObject userJson = new JsonObject();
+				userJson.addProperty("username", registerUsernameField.getText());
+				userJson.addProperty("password", registerPasswordField.getText());
+				userJson.addProperty("name", registerNameField.getText());
+				userJson.addProperty("email", registerEmailField.getText());
+				
+				System.out.println(userJson.toString());
+				
+				UserService userService = UserService.getInstance();
+				
+				Map<String, String> response = userService.register(userJson.toString());
+				
+				if(response.containsKey("error")) {
+					JOptionPane.showMessageDialog(null, response.get("error"), "error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}	
+				
+				JOptionPane.showMessageDialog(null, response.get("ok"), "ok", JOptionPane.INFORMATION_MESSAGE);
+				mainCard.show(mainPanel, "loginPanel"); //로그인창으로 넘겨줌
+				clearFields(registerFields);
+			}
+		});
 		registerButton.setFont(new Font("D2Coding", Font.BOLD, 27));
 		registerButton.setBackground(Color.WHITE);
 		registerButton.setBounds(74, 417, 529, 41);
 		registerPanel.add(registerButton);
+		
+		loginFields.add(UsernameField);
+		loginFields.add(passwordField);
+		
+		registerFields.add(registerUsernameField);
+		registerFields.add(registerPasswordField);
+		registerFields.add(registerNameField);
+		registerFields.add(registerEmailField);
+	}
+	private void clearFields(List<JTextField> textFields) {
+		for(JTextField field : textFields) {
+			if(field.getText().isEmpty()) { //
+				continue;
+			}
+			field.setText("");
+		}
 	}
 }
