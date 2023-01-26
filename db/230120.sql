@@ -18,8 +18,8 @@ order by
     
 select * from author_mst;
 
-insert into publicher_mst
-	(publicher_name)
+insert into publisher_mst
+	(publisher_name)
 select distinct
 	출판사
 from
@@ -38,11 +38,11 @@ where
 	저작자 = author_name;
     
 
-update library_mst, publicher_mst
+update library_mst, publisher_mst
 set
-	출판사 = publicher_id
+	출판사 = publisher_id
 where
-	출판사 = publicher_name;
+	출판사 = publisher_name;
     
 
 select
@@ -50,7 +50,7 @@ select
 from
 	library_mst lm
     left outer join author_mst am on(am.author_id = lm.저작자)
-    left outer join publicher_mst pm on(pm.publicher_id = lm.출판사);
+    left outer join publisher_mst pm on(pm.publisher_id = lm.출판사);
 	
 
 
@@ -89,6 +89,8 @@ from
     left outer join author_mst am on(am.author_id = lm.저작자)
 where
 	am.author_name like '서%';
+
+show profiles;
     
 
 
