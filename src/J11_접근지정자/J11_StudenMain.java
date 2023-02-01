@@ -13,7 +13,7 @@ public class J11_StudenMain {
 					
 		J11_StudentDefault s2 = new J11_StudentDefault();
 		
-//		s2.name = "홍길동";
+		s2.name = "홍길동";
 //		
 //		System.out.println("이름: " + s2.name);
 		System.out.println("이름: " + s2.getName());

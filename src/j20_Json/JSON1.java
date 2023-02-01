@@ -14,7 +14,7 @@ public class JSON1 {
 		map.put("b", 10.5);
 		map.put("c", new int[] {10, 20, 30, 40, 50});
 		
-		System.out.println(map);
+//		System.out.println(map);
 		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String mapJson = gson.toJson(map);
