@@ -23,7 +23,7 @@ public class User {
 //		private String password;
 //		private String name;
 //		private String email;
-//		
+////		
 //		public UserBuilder username(String username) {
 //			this.username = username;
 //			return this; //this를 리턴??
@@ -44,6 +44,6 @@ public class User {
 //		public User build() {
 //			return new User(username, password, name, email);
 //		}
-//		
+////		
 //	}
 }
