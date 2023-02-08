@@ -10,7 +10,7 @@ values (0, 'ROLE_USER'),
         
 select * from role_mst;
 
-role_dtlrole_dtlinsert into role_dtl
+insert into role_dtl
 values
 	(0, 1, 1),
 	(0, 2, 1),
