@@ -10,18 +10,22 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
+
 public class SocketServer extends Thread{
 	
 	public static List<SocketServer> clientList = new ArrayList<>();
 	private Socket socket;
 	private InputStream inputStream;
 	private OutputStream outputStream;
+	private Gson gson;
 	
 	private static int autoIncrement = 1;
 	private String name;
 	
 	public SocketServer(Socket socket) {
 		this.socket = socket;
+		gson = new Gson();
 		name = "user" + autoIncrement++;
 		clientList.add(this);
 	}
